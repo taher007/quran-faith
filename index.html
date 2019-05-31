@@ -11,7 +11,7 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
 
     <style>
@@ -60,6 +60,7 @@
         .container {
             display: table-cell;
             vertical-align: middle;
+            overflow: hidden;
         }
 
         .alignCenter {
@@ -67,7 +68,7 @@
         }
 
         .play {
-            width: 25%;
+            width: 13rem;
         }
 
         .stores {
@@ -79,39 +80,26 @@
 
 <body>
     <div class="container">
-        <div style="position: relative">
-            <div class="row" style="position: absolute;width:100%">
-                <h3 class="col s12 alignCenter">Quran App</h3>
-            </div>
-
+        <div>
             <div class="carousel" id="quraan-carousel">
                 <a class="carousel-item" href="#1">
-                    <img
-                        src="https://lh3.googleusercontent.com/-BXkLhC3SnNnIcoz_oVvn6AcmcXLvUe_1M6wxiALxe6IGB13zIWs951ubLOLeEpGLkI=w144-h144-n-rw">
+                    <img src="./images/shoba.png">
                 </a>
                 <a class="carousel-item" href="#2">
                     <img src="./images/hesham.png">
                 </a>
                 <a class="carousel-item" href="#3">
-                    <img src="./images/shoba.png">
+                    <img src="./images/ibn_zikwan.png">
                 </a>
-                <a class="carousel-item" href="#4">
-                    <img src="./images/hesham.png">
-                </a>
-                <a class="carousel-item" href="#5">
-                    <img src="./images/shoba.png">
                 </a>
             </div>
 
-            <br />
             <div style="text-align: center;" class="row stores">
-                <div class="col s3"></div>
-                <div class="col s6">
+                <div class="col s12">
                     <a id="googlePlay">
                         <img alt="Android app on Google Play" src="./images/google-play-badge.png" class="play" />
                     </a>
                 </div>
-                <div class="col s3"></div>
 
                 <div class=" col s12">
                     <div id="fb-root"></div>
@@ -127,25 +115,23 @@
 
     <script>
         $(document).ready(function () {
-            var carousel = $('#quraan-carousel').carousel({ duration: 250 });
+            var carousel = $('#quraan-carousel').carousel({
+                duration: 250, onCycleTo: function (ele, dragged) {
+                    $('#googlePlay').stop(true, true).fadeOut(350).fadeIn(900);
+                }
+            });
             var googlePlay = $('#googlePlay');
             googlePlay.click(() => {
                 var appPackage = '';
                 switch (document.getElementsByClassName('carousel-item active')[0].getAttribute('href')) {
                     case '#1':
-                        appPackage = 'com.quran.labs.androidquran';
+                        appPackage = 'faith.quraan.quraanqeraat.shuba.new';
                         break;
                     case '#2':
                         appPackage = 'faith.quraan.quraanqeraat.hesham';
                         break;
                     case '#3':
-                        appPackage = 'faith.quraan.quraanqeraat.shuba.new';
-                        break;
-                    case '#4':
-                        appPackage = 'faith.quraan.quraanqeraat.hesham';
-                        break;
-                    case '#5':
-                        appPackage = 'faith.quraan.quraanqeraat.shuba.new';
+                        appPackage = 'faith.quraan.quraanqeraat.ibnthakwan';
                         break;
                 }
                 googlePlay.attr('href', 'https://play.google.com/store/apps/details?id=' + appPackage);
